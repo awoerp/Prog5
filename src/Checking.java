@@ -1,6 +1,6 @@
 /**
  *
- * @author SteveWoerpel
+ * @author SteveWoerpel chetttttt
  */
 public class Checking extends Account 
 {

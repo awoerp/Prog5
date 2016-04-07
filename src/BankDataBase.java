@@ -28,10 +28,10 @@ public class BankDataBase
    {
       for(int i = 0; i < num; i++)
       {
-         if(accno == bank[i].accNumber)
-          
+         if(accno == bank[i].getAccountNum())
+            return i;
       }
-      
+      return NOT_FOUND;  
    }
    
    private void grow() //grow the list by GROW_SIZE
@@ -49,19 +49,29 @@ public class BankDataBase
            
    public boolean add(Account a) //add a to the list
    {
+      if(contains(a))
+         return false;
       num++;
       bank[num] = a;
-      
+      return true;
    }
    
    public boolean remove(Account a) //remove a from the list
    {
-      
+      int index = find(a);
+      if(index == NOT_FOUND)
+         return false;
+      for(int i = index; i < bank.length; i++)
+      {
+          bank[i] = bank[i + 1];
+      }
+      num--;
+      return true;
    }
    
    public boolean contains(Account a) //return true is a is in the list
    {
-      
+      return find(a) != NOT_FOUND;
    }
    
    public String toString() //concatenate all accounts to a string using ‘\n’ as the delimiter

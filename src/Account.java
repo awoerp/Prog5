@@ -1,6 +1,6 @@
 /**
  *
- * @author SteveWoerpel
+ * @author SteveWoerpel chett
  */
 public abstract class Account 
 {
@@ -19,12 +19,16 @@ public abstract class Account
    {
       openOn = new Date();
       balance = 0;
-      
       holder = new Profile(name, phone);
    }
    
    public boolean equals()
    {
       
+   }
+   
+   public int getAccountNum()
+   {
+      return numAccount;
    }
 }
