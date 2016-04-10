@@ -320,25 +320,37 @@ public class TransactionManager extends javax.swing.JFrame {
 
    private void openAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openAccountActionPerformed
 
-      if(nameField.isValid() && phoneNumberField.isValid())
+      if(nameIsValid(nameField.toString()))
       {
-         if(checking.isSelected())
+         if(phoneIsValid(phoneNumberField.toString()))
          {
-            if(directDeposit.isSelected())
-               data.add(new Checking(nameField.toString(),phoneNumberField.toString(), true));
-            else
-               data.add(new Checking(nameField.toString(),phoneNumberField.toString(), false));
+            if(checking.isSelected())
+            {
+               if(directDeposit.isSelected())
+                  data.add(new Checking(nameField.toString(),phoneNumberField.toString(), true));
+               else
+                  data.add(new Checking(nameField.toString(),phoneNumberField.toString(), false));
+            }
+            else if(savings.isSelected())
+            {
+               if(specialSavingsAccount.isSelected())
+                  data.add(new Savings(nameField.toString(),phoneNumberField.toString(), true));
+               else
+                  data.add(new Savings(nameField.toString(),phoneNumberField.toString(), false));
+            }
+            else if(moneyMarket.isSelected())
+               data.add(new MoneyMarket(nameField.toString(),phoneNumberField.toString()));
          }
-         else if(savings.isSelected())
+         else
          {
-            if(specialSavingsAccount.isSelected())
-               data.add(new Savings(nameField.toString(),phoneNumberField.toString(), true));
-            else
-               data.add(new Savings(nameField.toString(),phoneNumberField.toString(), false));
+            //error     
          }
-         else if(moneyMarket.isSelected())
-            data.add(new MoneyMarket(nameField.toString(),phoneNumberField.toString()));
       }
+      else
+      {
+         //error
+      }
+      
 
    }//GEN-LAST:event_openAccountActionPerformed
 
@@ -376,6 +388,18 @@ public class TransactionManager extends javax.swing.JFrame {
       checking.setSelected(true);
       directDeposit.setSelected(false);
       specialSavingsAccount.setSelected(false);
+   }
+   
+   private boolean nameIsValid(String name)
+   {
+      return name.matches("[a-zA-z]+ [a-zA-Z]+");
+   }
+   
+   private boolean phoneIsValid(String phone)
+   {
+      // Regular expression that matches if phone is
+      // 10 characters long and contains only numbers
+      return phone.matches("[0-9]{10}");
    }
    /**
     * @param args the command line arguments
