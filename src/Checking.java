@@ -9,10 +9,10 @@ public class Checking extends Account
    private static final double MIN_BAL = 1500;
    private boolean directDeposit; //no fees if this is true
    
-   public Checking(String name, String phone)
+   public Checking(String name, String phone, boolean dd)
    {
       super(name, phone);
-      directDeposit = false;
+      directDeposit = dd;
    }
    
    public void applyInterestAndFee()

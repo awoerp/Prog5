@@ -13,13 +13,18 @@ public class Profile
       phone = p;
    }
    
-   public boolean equals()
+   public boolean equals(Object obj)
    {
-      
+      if(obj instanceof Profile)
+      {
+         Profile temp = (Profile) obj;
+         return(name.equals(temp.name) && phone.equals(temp.phone));
+      }
+      return false;
    }
    
    public String toString()
    {
-   
+      return name + ' ' + phone;
    }
 }

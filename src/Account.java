@@ -20,15 +20,17 @@ public abstract class Account
       openOn = new Date();
       balance = 0;
       holder = new Profile(name, phone);
+      accNumber = numAccount++;
    }
    
-   public boolean equals()
+   public boolean equals(Account a)
    {
-      
+      return(holder.equals(a.holder) && openOn.equals(a.openOn) && 
+             (balance == a.balance) && (accNumber == a.accNumber));
    }
    
    public int getAccountNum()
    {
-      return numAccount;
+      return accNumber;
    }
 }

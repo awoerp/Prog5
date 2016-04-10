@@ -9,10 +9,10 @@ public class Savings extends Account
    private static final double MIN_BAL = 300;
    private boolean special; // the interest rate is .35 if this is true
    
-   public Savings(String name, String phone)
+   public Savings(String name, String phone, boolean ssa)
    {
       super(name, phone);
-      special = false;
+      special = ssa;
    }
    
    public void applyInterestAndFee()
