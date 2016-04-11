@@ -37,7 +37,7 @@ public class TransactionManager extends javax.swing.JFrame {
       jToggleButton1 = new javax.swing.JToggleButton();
       jButton2 = new javax.swing.JButton();
       jScrollPane1 = new javax.swing.JScrollPane();
-      jTextArea1 = new javax.swing.JTextArea();
+      statisticsArea = new javax.swing.JTextArea();
       showAccounts = new javax.swing.JButton();
       runMonthlyInterestAndFees = new javax.swing.JButton();
       savings = new javax.swing.JRadioButton();
@@ -127,9 +127,9 @@ public class TransactionManager extends javax.swing.JFrame {
 
       jButton2.setText("Withdraw");
 
-      jTextArea1.setColumns(20);
-      jTextArea1.setRows(5);
-      jScrollPane1.setViewportView(jTextArea1);
+      statisticsArea.setColumns(20);
+      statisticsArea.setRows(5);
+      jScrollPane1.setViewportView(statisticsArea);
 
       showAccounts.setText("Show All Accounts");
       showAccounts.addActionListener(new java.awt.event.ActionListener() {
@@ -319,30 +319,87 @@ public class TransactionManager extends javax.swing.JFrame {
    }//GEN-LAST:event_nameFieldActionPerformed
 
    private void openAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openAccountActionPerformed
-   
-      
+
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
-      if(nameIsValid(nameFieldText))
+      boolean added = false;
+      if(checking.isSelected())
       {
-         if(phoneIsValid(phoneNumberFieldText))
+         if(directDeposit.isSelected())
+            added = data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
+         else
+            added = data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
+      }
+      else if(savings.isSelected())
+      {
+         if(specialSavingsAccount.isSelected())
+            added = data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
+         else
+            added = data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
+      }
+      else if(moneyMarket.isSelected())
+         added = data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
+      
+      if(added)
+         printAddedSuccessfully(data.find(nameFieldText, phoneNumberFieldText));
+   }//GEN-LAST:event_openAccountActionPerformed
+
+   private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
+      String nameFieldText = nameField.getText();
+      String phoneNumberFieldText = phoneNumberField.getText();
+      boolean removed = false;
+      Object temp = data.find(nameFieldText, phoneNumberFieldText);
+      if(isValid(nameFieldText,phoneNumberFieldText))
+      {
+         if(checking.isSelected())
          {
-            if(checking.isSelected())
+            if(temp instanceof Checking)
             {
-               if(directDeposit.isSelected())
-                  data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
-               else
-                  data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
+               removed = data.remove((Checking) temp);
             }
-            else if(savings.isSelected())
+         }
+         else if(savings.isSelected())
+         {
+            if(temp instanceof Savings)
             {
-               if(specialSavingsAccount.isSelected())
-                  data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
-               else
-                  data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
+               removed = data.remove((Savings) temp);
             }
-            else if(moneyMarket.isSelected())
-               data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
+         }
+         else if(moneyMarket.isSelected())
+         {
+            if(temp instanceof MoneyMarket)
+            {
+               removed = data.remove((MoneyMarket) temp);
+            }
+         }
+         else
+         {
+            JOptionPane.showMessageDialog(new JFrame(),
+                                       "Account Not Found",
+                                       "Dialog",
+                                       JOptionPane.ERROR_MESSAGE);   
+         }
+      }
+   }//GEN-LAST:event_closeAccountActionPerformed
+
+   
+   private void printRemovedSuccessfully(Account temp)
+   {
+      statisticsArea.append("Account" + temp.getAccountNum() + " Has been closed.\n");
+   }
+   
+   private void printAddedSuccessfully(Account temp)
+   {
+      statisticsArea.append("Account:" + temp.getAccountNum() + " Has been opened.\n");
+   }
+   
+   private boolean isValid(String n, String p)
+   {
+      if(nameIsValid(n))
+      {
+         if(phoneIsValid(p))
+         {
+            return true;
          }
          else
          {
@@ -354,35 +411,13 @@ public class TransactionManager extends javax.swing.JFrame {
       }
       else
       {
-         JOptionPane.showMessageDialog(new JFrame(),
+        JOptionPane.showMessageDialog(new JFrame(),
                                        "Invalid Name Entered",
                                        "Dialog",
-                                       JOptionPane.ERROR_MESSAGE);
+                                       JOptionPane.ERROR_MESSAGE); 
       }
-      
-
-   }//GEN-LAST:event_openAccountActionPerformed
-
-   private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
-      if(checking.isSelected())
-      {
-         Checking temp = new Checking(nameFieldText,phoneNumberFieldText,false);
-         data.remove(temp);
-      }
-      else if(savings.isSelected())
-      {
-         Savings temp = new Savings(nameFieldText,phoneNumberFieldText,false);
-         data.remove(temp);
-      }
-      else
-      {
-         MoneyMarket temp = new MoneyMarket(nameFieldText,phoneNumberFieldText);
-         data.remove(temp);
-      }
-      
-     
-   }//GEN-LAST:event_closeAccountActionPerformed
-
+      return false;
+   }
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
 
       
@@ -439,7 +474,6 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JPanel jPanel3;
    private javax.swing.JRadioButton jRadioButton4;
    private javax.swing.JScrollPane jScrollPane1;
-   private javax.swing.JTextArea jTextArea1;
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField2;
    private javax.swing.JTextField jTextField3;
@@ -454,5 +488,6 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JRadioButton savings;
    private javax.swing.JButton showAccounts;
    private javax.swing.JCheckBox specialSavingsAccount;
+   private javax.swing.JTextArea statisticsArea;
    // End of variables declaration//GEN-END:variables
 }

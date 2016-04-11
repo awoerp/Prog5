@@ -11,6 +11,7 @@ public class BankDataBase
    
    public BankDataBase()
    {
+      bank = new Account[GROW_SIZE];
       num = 0;
    }
    
@@ -36,6 +37,16 @@ public class BankDataBase
       return NOT_FOUND;  
    }
    
+   public Account find(String name, String phone)
+   {
+      for(int i = 0; i < num; i++)
+      {
+         if(bank[i].holder.equals(name, phone))
+            return bank[i];
+      }
+      return null;
+   }
+   
    private void grow() //grow the list by GROW_SIZE
    {
       if(num == bank.length)
@@ -43,7 +54,7 @@ public class BankDataBase
          Account [] temp = new Account[bank.length + GROW_SIZE];
          for(int i = 0; i < bank.length; i++)
          {
-            temp[i].equals(bank[i]);
+            temp[i] = (bank[i]);
          }
          bank = temp;
       }
@@ -53,8 +64,10 @@ public class BankDataBase
    {
       if(contains(a))
          return false;
-      num++;
+      if(num == bank.length)
+         grow();
       bank[num] = a;
+      num++;
       return true;
    }
    
@@ -63,22 +76,19 @@ public class BankDataBase
       int index = find(a);
       if(index == NOT_FOUND)
          return false;
-      for(int i = index; i < bank.length; i++)
-      {
-          bank[i] = bank[i + 1];
-      }
+      bank[index] = bank[num];
       num--;
       return true;
    }
    
    public boolean contains(Account a) //return true is a is in the list
    {
-      return find(a) != NOT_FOUND;
+      return (find(a) != NOT_FOUND);
    }
    
    public String toString() //concatenate all accounts to a string using ‘\n’ as the delimiter
    {
-      
+      return null;
    }
    
    public int size() //return the number of accounts in the list 
