@@ -7,7 +7,7 @@ public class BankDataBase
    private static final int GROW_SIZE = 2; //initial size and grow size
    private static final int NOT_FOUND = -1;
    private Account [] bank;
-   private int num; 
+   private int num;
    
    public BankDataBase()
    {

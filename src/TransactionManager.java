@@ -319,43 +319,64 @@ public class TransactionManager extends javax.swing.JFrame {
    }//GEN-LAST:event_nameFieldActionPerformed
 
    private void openAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openAccountActionPerformed
-
-      if(nameField.isValid() && phoneNumberField.isValid())
+   
+      
+      String nameFieldText = nameField.getText();
+      String phoneNumberFieldText = phoneNumberField.getText();
+      if(nameIsValid(nameFieldText))
       {
-         if(checking.isSelected())
+         if(phoneIsValid(phoneNumberFieldText))
          {
-            if(directDeposit.isSelected())
-               data.add(new Checking(nameField.toString(),phoneNumberField.toString(), true));
-            else
-               data.add(new Checking(nameField.toString(),phoneNumberField.toString(), false));
+            if(checking.isSelected())
+            {
+               if(directDeposit.isSelected())
+                  data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
+               else
+                  data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
+            }
+            else if(savings.isSelected())
+            {
+               if(specialSavingsAccount.isSelected())
+                  data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
+               else
+                  data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
+            }
+            else if(moneyMarket.isSelected())
+               data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
          }
-         else if(savings.isSelected())
+         else
          {
-            if(specialSavingsAccount.isSelected())
-               data.add(new Savings(nameField.toString(),phoneNumberField.toString(), true));
-            else
-               data.add(new Savings(nameField.toString(),phoneNumberField.toString(), false));
+            JOptionPane.showMessageDialog(new JFrame(),
+                                          "Invalid Phone Number Entered",
+                                          "Dialog",
+                                          JOptionPane.ERROR_MESSAGE);    
          }
-         else if(moneyMarket.isSelected())
-            data.add(new MoneyMarket(nameField.toString(),phoneNumberField.toString()));
       }
+      else
+      {
+         JOptionPane.showMessageDialog(new JFrame(),
+                                       "Invalid Name Entered",
+                                       "Dialog",
+                                       JOptionPane.ERROR_MESSAGE);
+      }
+      
 
    }//GEN-LAST:event_openAccountActionPerformed
 
    private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
       if(checking.isSelected())
       {
-         Checking temp = new Checking(nameField.toString(),phoneNumberField.toString(),false);
+         Checking temp = new Checking(nameFieldText,phoneNumberFieldText,false);
          data.remove(temp);
       }
       else if(savings.isSelected())
       {
-         Savings temp = new Savings(nameField.toString(),phoneNumberField.toString(),false);
+         Savings temp = new Savings(nameFieldText,phoneNumberFieldText,false);
          data.remove(temp);
       }
       else
       {
-         MoneyMarket temp = new MoneyMarket(nameField.toString(),phoneNumberField.toString());
+         MoneyMarket temp = new MoneyMarket(nameFieldText,phoneNumberFieldText);
          data.remove(temp);
       }
       
@@ -376,6 +397,19 @@ public class TransactionManager extends javax.swing.JFrame {
       checking.setSelected(true);
       directDeposit.setSelected(false);
       specialSavingsAccount.setSelected(false);
+   }
+   
+   private boolean nameIsValid(String name)
+   {
+      boolean result = name.matches("[a-zA-z]+ [a-zA-Z]+");
+      return result;
+   }
+   
+   private boolean phoneIsValid(String phone)
+   {
+      // Regular expression that matches if phone is
+      // 10 characters long and contains only numbers
+      return phone.matches("[0-9]{10}");
    }
    /**
     * @param args the command line arguments
