@@ -22,10 +22,17 @@ public class Savings extends Account
    
    public String toString()
    {
-      return("Account number: " + Integer.toString(accNumber) + "\n" +
+      String specialAccount;
+      if(special)
+         specialAccount = "Yes";
+      else 
+         specialAccount = "No";
+      
+      return("Account number:      " + Integer.toString(accNumber) + "\n" +
               holder.toString() +
              "Account Type:   Savings" + "\n" +
-             "Date Opened:    " + openOn.toString());
+             "Date Opened:    " + openOn.toString() + "\n" +
+             "Special Account:      " + specialAccount + "\n");
    }
    
    

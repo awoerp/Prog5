@@ -12,6 +12,8 @@ public class TransactionManager extends javax.swing.JFrame {
     */
    public TransactionManager() {
       initComponents();
+      directDeposit.setEnabled(false);
+      specialSavingsAccount.setEnabled(false);
    }
 
    /**
@@ -184,6 +186,11 @@ public class TransactionManager extends javax.swing.JFrame {
 
       accountTypeGroup.add(savings);
       savings.setText("Savings");
+      savings.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            savingsActionPerformed(evt);
+         }
+      });
 
       specialSavingsAccount.setText("Special Savings Account");
 
@@ -246,6 +253,11 @@ public class TransactionManager extends javax.swing.JFrame {
 
       accountTypeGroup.add(checking);
       checking.setText("Checking");
+      checking.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkingActionPerformed(evt);
+         }
+      });
 
       accountTypeGroup.add(moneyMarket);
       moneyMarket.setText("Money Market");
@@ -323,6 +335,7 @@ public class TransactionManager extends javax.swing.JFrame {
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
+
       if(isValid(nameFieldText,phoneNumberFieldText))
       {
          if(checking.isSelected())
@@ -356,6 +369,7 @@ public class TransactionManager extends javax.swing.JFrame {
       {
          if(checking.isSelected())
          {
+            directDeposit.setEnabled(true);
             if(temp instanceof Checking)
             {
                removed = data.remove((Checking) temp);
@@ -363,6 +377,7 @@ public class TransactionManager extends javax.swing.JFrame {
          }
          else if(savings.isSelected())
          {
+            specialSavingsAccount.setEnabled(true);
             if(temp instanceof Savings)
             {
                removed = data.remove((Savings) temp);
@@ -429,15 +444,30 @@ public class TransactionManager extends javax.swing.JFrame {
       
    }//GEN-LAST:event_showAccountsActionPerformed
 
+   private void checkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkingActionPerformed
+      directDeposit.setEnabled(true);
+      specialSavingsAccount.setEnabled(false);
+      specialSavingsAccount.setSelected(false);
+      
+   }//GEN-LAST:event_checkingActionPerformed
+
+   private void savingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savingsActionPerformed
+      specialSavingsAccount.setEnabled(true);
+      directDeposit.setEnabled(false);
+      directDeposit.setSelected(false);
+   }//GEN-LAST:event_savingsActionPerformed
+
    public void main()
    {
-      
       accountTypeGroup.add(checking);
       accountTypeGroup.add(savings);
       accountTypeGroup.add(moneyMarket);
       checking.setSelected(true);
       directDeposit.setSelected(false);
+      directDeposit.setEnabled(false);
       specialSavingsAccount.setSelected(false);
+      specialSavingsAccount.setEnabled(false);
+      
    }
    
    private boolean nameIsValid(String name)
