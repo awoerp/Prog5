@@ -13,6 +13,11 @@ public class Profile
       phone = p;
    }
    
+   public boolean equals(Profile p)
+   {
+      return(name.equals(p.name) && phone.equals(p.phone));
+   }
+   
    public boolean equals(String n, String p)
    {
       return(n.equals(name) && p.equals(phone));
