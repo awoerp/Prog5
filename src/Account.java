@@ -30,7 +30,16 @@ public abstract class Account
    
    public boolean equals(Account a)
    {
-      return(accNumber == a.accNumber ) && holder.equals(a.holder);
+      Object thisType = this.getClass();
+      Object aType = a.getClass();
+      boolean c = false;
+      if(aType.equals(thisType))
+      {
+         c = true;
+      }
+
+      boolean b = holder.equals(a.holder);
+      return c && b;
    }
    
    public int getAccountNum()

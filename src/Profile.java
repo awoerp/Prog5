@@ -20,6 +20,7 @@ public class Profile
    
    public boolean equals(String n, String p)
    {
+
       return(n.equals(name) && p.equals(phone));
    }
    
