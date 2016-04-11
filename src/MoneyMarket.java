@@ -23,7 +23,10 @@ public class MoneyMarket extends Account
    
    public String toString()
    {
-      return null;
+      return(holder.toString() +
+             "Account number: " + Integer.toString(accNumber) + "\n" +
+             "Account Type:   Money Market" + "\n" +
+             "Date Opened:    " + openOn.toString());
    }
    
 }

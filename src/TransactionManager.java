@@ -423,6 +423,9 @@ public class TransactionManager extends javax.swing.JFrame {
    }
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
 
+      statisticsArea.setText(null);
+      statisticsArea.append("\n" + data.toString());
+      
       
    }//GEN-LAST:event_showAccountsActionPerformed
 

@@ -22,7 +22,10 @@ public class Savings extends Account
    
    public String toString()
    {
-      return null;
+      return("Account number: " + Integer.toString(accNumber) + "\n" +
+              holder.toString() +
+             "Account Type:   Savings" + "\n" +
+             "Date Opened:    " + openOn.toString());
    }
    
    

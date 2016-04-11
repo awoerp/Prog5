@@ -22,7 +22,10 @@ public class Checking extends Account
    
    public String toString()
    {
-      return null;
+      return(holder.toString() +
+             "Account number: " + Integer.toString(accNumber) + "\n" +
+             "Account Type:   Checking" + "\n" +
+             "Date Opened:    " + openOn.toString());
    }
    
    

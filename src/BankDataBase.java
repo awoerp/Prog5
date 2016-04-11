@@ -88,7 +88,12 @@ public class BankDataBase
    
    public String toString() //concatenate all accounts to a string using ‘\n’ as the delimiter
    {
-      return null;
+      String combo = "";
+      for(int i = 0; i < num; i++)
+      {
+         combo += bank[i].toString() + "\n\n";
+      }
+      return combo;
    }
    
    public int size() //return the number of accounts in the list 
