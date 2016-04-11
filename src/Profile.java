@@ -13,14 +13,9 @@ public class Profile
       phone = p;
    }
    
-   public boolean equals(Object obj)
+   public boolean equals(String n, String p)
    {
-      if(obj instanceof Profile)
-      {
-         Profile temp = (Profile) obj;
-         return(name.equals(temp.name) && phone.equals(temp.phone));
-      }
-      return false;
+      return(n.equals(name) && p.equals(phone));
    }
    
    public String toString()

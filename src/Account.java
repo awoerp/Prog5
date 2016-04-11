@@ -23,10 +23,9 @@ public abstract class Account
       accNumber = numAccount++;
    }
    
-   public boolean equals(Account a)
+   public boolean equals(String n,String p)
    {
-      return(holder.equals(a.holder) && openOn.equals(a.openOn) && 
-             (balance == a.balance) && (accNumber == a.accNumber));
+      return(holder.equals(n,p));
    }
    
    public int getAccountNum()

@@ -41,7 +41,7 @@ public class BankDataBase
    {
       for(int i = 0; i < num; i++)
       {
-         if(bank[i].holder.equals(name, phone))
+         if(bank[i].equals(name, phone))
             return bank[i];
       }
       return null;
