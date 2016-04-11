@@ -28,6 +28,11 @@ public abstract class Account
       return(holder.equals(n,p));
    }
    
+   public boolean equals(Account a)
+   {
+      return(accNumber == a.accNumber ) && holder.equals(a.holder);
+   }
+   
    public int getAccountNum()
    {
       return accNumber;

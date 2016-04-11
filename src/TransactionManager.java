@@ -323,25 +323,28 @@ public class TransactionManager extends javax.swing.JFrame {
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
-      if(checking.isSelected())
+      if(isValid(nameFieldText,phoneNumberFieldText))
       {
-         if(directDeposit.isSelected())
-            added = data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
-         else
-            added = data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
+         if(checking.isSelected())
+         {
+            if(directDeposit.isSelected())
+               added = data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
+            else
+               added = data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
+         }
+         else if(savings.isSelected())
+         {
+            if(specialSavingsAccount.isSelected())
+               added = data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
+            else
+               added = data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
+         }
+         else if(moneyMarket.isSelected())
+            added = data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
+
+         if(added)
+            printAddedSuccessfully(data.find(nameFieldText, phoneNumberFieldText));
       }
-      else if(savings.isSelected())
-      {
-         if(specialSavingsAccount.isSelected())
-            added = data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
-         else
-            added = data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
-      }
-      else if(moneyMarket.isSelected())
-         added = data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
-      
-      if(added)
-         printAddedSuccessfully(data.find(nameFieldText, phoneNumberFieldText));
    }//GEN-LAST:event_openAccountActionPerformed
 
    private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
