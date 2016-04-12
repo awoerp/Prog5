@@ -336,7 +336,7 @@ public class TransactionManager extends javax.swing.JFrame {
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
 
-      if(isValid(nameFieldText,phoneNumberFieldText))
+      if(isValid(nameFieldText,phoneNumberFieldText,true))
       {
          if(checking.isSelected())
          {
@@ -365,11 +365,10 @@ public class TransactionManager extends javax.swing.JFrame {
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean removed = false;
       Object temp = data.find(nameFieldText, phoneNumberFieldText);
-      if(isValid(nameFieldText,phoneNumberFieldText))
+      if(isValid(nameFieldText,phoneNumberFieldText,false))
       {
          if(checking.isSelected())
-         {
-            directDeposit.setEnabled(true);
+         { 
             if(temp instanceof Checking)
             {
                removed = data.remove((Checking) temp);
@@ -377,7 +376,6 @@ public class TransactionManager extends javax.swing.JFrame {
          }
          else if(savings.isSelected())
          {
-            specialSavingsAccount.setEnabled(true);
             if(temp instanceof Savings)
             {
                removed = data.remove((Savings) temp);
@@ -390,34 +388,56 @@ public class TransactionManager extends javax.swing.JFrame {
                removed = data.remove((MoneyMarket) temp);
             }
          }
+
+         if(removed)
+         {
+            printRemovedSuccessfully((Account) temp);
+         }
          else
          {
             JOptionPane.showMessageDialog(new JFrame(),
                                        "Account Not Found",
                                        "Dialog",
-                                       JOptionPane.ERROR_MESSAGE);   
+                                       JOptionPane.ERROR_MESSAGE);    
          }
+         
+
       }
    }//GEN-LAST:event_closeAccountActionPerformed
 
    
    private void printRemovedSuccessfully(Account temp)
    {
-      statisticsArea.append("Account" + temp.getAccountNum() + " Has been closed.\n");
+      statisticsArea.append("Account: " + temp.getAccountNum() + " Has been closed.\n");
    }
    
    private void printAddedSuccessfully(Account temp)
    {
-      statisticsArea.append("Account:" + temp.getAccountNum() + " Has been opened.\n");
+      statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
    }
    
-   private boolean isValid(String n, String p)
+   private boolean isValid(String n, String p, boolean add)
    {
       if(nameIsValid(n))
       {
          if(phoneIsValid(p))
          {
-            return true;
+            if(add)
+            {
+               if(!data.contains(data.find(n, p)))
+               {
+                  return true;
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(new JFrame(),
+                                            "Account Already Exists",
+                                            "Dialog",
+                                            JOptionPane.ERROR_MESSAGE); 
+               }
+            }
+            else
+               return true;
          }
          else
          {

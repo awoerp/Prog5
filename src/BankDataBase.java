@@ -76,13 +76,19 @@ public class BankDataBase
       int index = find(a);
       if(index == NOT_FOUND)
          return false;
-      bank[index] = bank[num];
+      bank[index] = null;
+      for(int i = index; i < bank.length - 1; i++)
+      {
+         bank[i] = bank[i + 1];
+      }
       num--;
       return true;
    }
    
    public boolean contains(Account a) //return true is a is in the list
    {
+      if(a == null)
+         return false;
       return (find(a) != NOT_FOUND);
    }
    
