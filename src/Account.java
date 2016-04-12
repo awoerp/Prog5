@@ -44,6 +44,7 @@ public abstract class Account
    
    public boolean equals(String n,String p, E_accountType type)
    {
+
       Object accountClassType = this.getClass();
       Object dumbyAccount = new Checking(n,p, false);
       boolean accountTypesMatch = false;
@@ -59,6 +60,10 @@ public abstract class Account
       decreaseNumberOfAccounts();
       decreaseNumberOfAccounts();
       decreaseNumberOfAccounts();
+      
+   if(type == null)
+      accountTypesMatch = true;
+      
       
       return accountTypesMatch && holder.equals(new Profile(n,p));
    }
