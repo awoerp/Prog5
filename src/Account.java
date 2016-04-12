@@ -47,13 +47,13 @@ public abstract class Account
       Object accountClassType = this.getClass();
       Object dumbyAccount = new Checking(n,p, false);
       boolean accountTypesMatch = false;
-      if(type == E_accountType.CHECKING && accountClassType.equals(dumbyAccount))
+      if(type == E_accountType.CHECKING && accountClassType.equals(dumbyAccount.getClass()))
          accountTypesMatch = true;
       dumbyAccount = new Savings(n,p, false);
-      if(type == E_accountType.SAVINGS && accountClassType.equals(dumbyAccount))
+      if(type == E_accountType.SAVINGS && accountClassType.equals(dumbyAccount.getClass()))
          accountTypesMatch = true;
       dumbyAccount = new MoneyMarket(n,p);
-      if(type == E_accountType.MONEY_MARKET && accountClassType.equals(dumbyAccount))
+      if(type == E_accountType.MONEY_MARKET && accountClassType.equals(dumbyAccount.getClass()))
          accountTypesMatch = true;
       
       decreaseNumberOfAccounts();

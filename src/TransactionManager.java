@@ -396,7 +396,7 @@ public class TransactionManager extends javax.swing.JFrame {
       
       
       
-      Object temp = data.find(nameFieldText, phoneNumberFieldText, accountType);
+      Account temp = data.find(nameFieldText, phoneNumberFieldText, accountType);
       if(isValid(nameFieldText,phoneNumberFieldText,false))
       {
          if(checking.isSelected())
