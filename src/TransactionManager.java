@@ -456,7 +456,7 @@ public class TransactionManager extends javax.swing.JFrame {
          {
             if(add)
             {
-               if(!data.contains(data.find(n,p,null)))
+               if(!data.contains(data.find(n, p)))
                {
                   return true;
                }
