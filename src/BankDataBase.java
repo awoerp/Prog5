@@ -32,10 +32,10 @@ public class BankDataBase
          if(accno == bank[i].getAccountNum())
             return i;
       }
-      return NOT_FOUND;  
+      return NOT_FOUND;
    }
    
-   public Account find(String name, String phone)
+   public Account find(String name, String phone, E_accountType type)
    {
       for(int i = 0; i < num; i++)
       {

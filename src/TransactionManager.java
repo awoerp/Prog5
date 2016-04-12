@@ -6,7 +6,7 @@
 import javax.swing.*;
 public class TransactionManager extends javax.swing.JFrame {
 
-   
+
    /**
     * Creates new form TransactionManager
     */
@@ -333,7 +333,9 @@ public class TransactionManager extends javax.swing.JFrame {
    }// </editor-fold>//GEN-END:initComponents
 
    BankDataBase data = new BankDataBase();
+   
 
+   
    private void phoneNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberFieldActionPerformed
       
    }//GEN-LAST:event_phoneNumberFieldActionPerformed
@@ -382,7 +384,19 @@ public class TransactionManager extends javax.swing.JFrame {
       boolean removed = false;
       dateOpenedField.setText(null);
       accountNumberField.setText(null);
-      Object temp = data.find(nameFieldText, phoneNumberFieldText);
+      
+      E_accountType accountType;
+      
+      if(checking.isSelected())
+         accountType = E_accountType.CHECKING;
+      else if(checking.isSelected())
+         accountType = E_accountType.SAVINGS;
+      else
+         accountType = E_accountType.MONEY_MARKET;
+      
+      
+      
+      Object temp = data.find(nameFieldText, phoneNumberFieldText, accountType);
       if(isValid(nameFieldText,phoneNumberFieldText,false))
       {
          if(checking.isSelected())
