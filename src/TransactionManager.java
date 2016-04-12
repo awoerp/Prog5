@@ -389,7 +389,7 @@ public class TransactionManager extends javax.swing.JFrame {
       
       if(checking.isSelected())
          accountType = E_accountType.CHECKING;
-      else if(checking.isSelected())
+      else if(savings.isSelected())
          accountType = E_accountType.SAVINGS;
       else
          accountType = E_accountType.MONEY_MARKET;
