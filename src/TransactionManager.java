@@ -12,8 +12,10 @@ public class TransactionManager extends javax.swing.JFrame {
     */
    public TransactionManager() {
       initComponents();
-      directDeposit.setEnabled(false);
+      directDeposit.setEnabled(true);
       specialSavingsAccount.setEnabled(false);
+      checking.setSelected(true);
+      
    }
 
    /**
