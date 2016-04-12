@@ -352,9 +352,9 @@ public class TransactionManager extends javax.swing.JFrame {
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
-
+      E_accountType accountType = getAccountType();
       statisticsArea.setText(null);
-      if(isValid(nameFieldText,phoneNumberFieldText,true))
+      if(isValid(nameFieldText,phoneNumberFieldText,true, accountType))
       {
          if(checking.isSelected())
          {
@@ -388,19 +388,11 @@ public class TransactionManager extends javax.swing.JFrame {
       dateOpenedField.setText(null);
       accountNumberField.setText(null);
       
-      E_accountType accountType;
-      
-      if(checking.isSelected())
-         accountType = E_accountType.CHECKING;
-      else if(savings.isSelected())
-         accountType = E_accountType.SAVINGS;
-      else
-         accountType = E_accountType.MONEY_MARKET;
-      
+      E_accountType accountType = getAccountType();
       
       
       Account temp = data.find(nameFieldText, phoneNumberFieldText, accountType);
-      if(isValid(nameFieldText,phoneNumberFieldText,false))
+      if(isValid(nameFieldText,phoneNumberFieldText,false, accountType))
       {
          if(checking.isSelected())
          { 
@@ -451,7 +443,17 @@ public class TransactionManager extends javax.swing.JFrame {
       statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
    }
    
-   private boolean isValid(String n, String p, boolean add)
+   private E_accountType getAccountType()
+   {
+      if(checking.isSelected())
+         return E_accountType.CHECKING;
+      else if(savings.isSelected())
+         return E_accountType.SAVINGS;
+      else
+         return E_accountType.MONEY_MARKET;
+   }
+   
+   private boolean isValid(String n, String p, boolean add, E_accountType type)
    {
       if(nameIsValid(n))
       {
@@ -459,11 +461,7 @@ public class TransactionManager extends javax.swing.JFrame {
          {
             if(add)
             {
-               if(!data.contains(data.find(n, p)))
-               {
-                  return true;
-               }
-               else if(accountTypeCheck(n,p))
+               if(!data.contains(data.find(n, p, type)))
                {
                   return true;
                }
@@ -507,6 +505,9 @@ public class TransactionManager extends javax.swing.JFrame {
          return false;
       return true;
    }
+   
+   
+   
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
 
       accountNumberField.setText(null);
