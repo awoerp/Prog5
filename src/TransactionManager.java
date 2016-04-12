@@ -380,7 +380,7 @@ public class TransactionManager extends javax.swing.JFrame {
       boolean removed = false;
       dateOpenedField.setText(null);
       accountNumberField.setText(null);
-      Object temp = data.find(nameFieldText, phoneNumberFieldText).getAccountNum();
+      Object temp = data.find(nameFieldText, phoneNumberFieldText);
       if(isValid(nameFieldText,phoneNumberFieldText,false))
       {
          if(checking.isSelected())
