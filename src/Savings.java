@@ -30,9 +30,9 @@ public class Savings extends Account
       
       return("Account number:      " + Integer.toString(accNumber) + "\n" +
               holder.toString() +
-             "Account Type:   Savings" + "\n" +
-             "Date Opened:    " + openOn.toString() + "\n" +
-             "Special Account:      " + specialAccount + "\n");
+             "Account Type:            Savings" + "\n" +
+             "Date Opened:            " + openOn.toString() + "\n" +
+             "Special Account:        " + specialAccount);
    }
    
    

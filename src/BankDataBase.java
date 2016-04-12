@@ -24,9 +24,7 @@ public class BankDataBase
       }
       return NOT_FOUND;
    }
-   
-   
-   
+
    private int find(int accno) //find the given account number; overloading
    {
       for(int i = 0; i < num; i++)
@@ -105,6 +103,21 @@ public class BankDataBase
    public int size() //return the number of accounts in the list 
    {
       return num;
+   }
+   
+   public String printDateMostRecent()
+   {
+      return(bank[num - 1].openOn.toString());
+   }
+   
+   public int recentAccNum()
+   {
+      return(bank[num - 1].getAccountNum());
+   }
+   
+   public Account peek()
+   {
+      return(bank[num - 1]);
    }
 
    

@@ -30,9 +30,9 @@ public class Checking extends Account
       
       return("Account number:      " + Integer.toString(accNumber) + "\n" +
               holder.toString() +
-             "Account Type:    Checking" + "\n" +
-             "Date Opened:    " + openOn.toString() + "\n" +
-             "Direct Deposit:  " + deposit + "\n");
+             "Account Type:            Checking" + "\n" +
+             "Date Opened:            " + openOn.toString() + "\n" +
+             "Direct Deposit:          " + deposit);
    }
    
    

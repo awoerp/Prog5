@@ -47,11 +47,11 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit = new javax.swing.JCheckBox();
       jPanel3 = new javax.swing.JPanel();
       jLabel4 = new javax.swing.JLabel();
-      jTextField2 = new javax.swing.JTextField();
+      accountNumberField = new javax.swing.JTextField();
       jLabel5 = new javax.swing.JLabel();
-      jTextField3 = new javax.swing.JTextField();
+      dateOpenedField = new javax.swing.JTextField();
       jLabel6 = new javax.swing.JLabel();
-      jTextField4 = new javax.swing.JTextField();
+      balanceField = new javax.swing.JTextField();
       jLabel7 = new javax.swing.JLabel();
       jTextField5 = new javax.swing.JTextField();
       checking = new javax.swing.JRadioButton();
@@ -198,15 +198,25 @@ public class TransactionManager extends javax.swing.JFrame {
 
       jLabel4.setText("Account Number");
 
-      jTextField2.setEditable(false);
+      accountNumberField.setEditable(false);
+      accountNumberField.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            accountNumberFieldActionPerformed(evt);
+         }
+      });
 
       jLabel5.setText("Date Opened");
 
-      jTextField3.setEditable(false);
+      dateOpenedField.setEditable(false);
+      dateOpenedField.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            dateOpenedFieldActionPerformed(evt);
+         }
+      });
 
       jLabel6.setText("Balance");
 
-      jTextField4.setEditable(false);
+      balanceField.setEditable(false);
 
       javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
       jPanel3.setLayout(jPanel3Layout);
@@ -221,12 +231,12 @@ public class TransactionManager extends javax.swing.JFrame {
                      .addComponent(jLabel5))
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                   .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                     .addComponent(jTextField2)
-                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
+                     .addComponent(accountNumberField)
+                     .addComponent(dateOpenedField, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
                .addGroup(jPanel3Layout.createSequentialGroup()
                   .addComponent(jLabel6)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                  .addComponent(jTextField4)))
+                  .addComponent(balanceField)))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       jPanel3Layout.setVerticalGroup(
@@ -235,15 +245,15 @@ public class TransactionManager extends javax.swing.JFrame {
             .addContainerGap()
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel4)
-               .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(accountNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel5)
-               .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(dateOpenedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel6)
-               .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
@@ -336,6 +346,7 @@ public class TransactionManager extends javax.swing.JFrame {
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
 
+      statisticsArea.setText(null);
       if(isValid(nameFieldText,phoneNumberFieldText,true))
       {
          if(checking.isSelected())
@@ -354,9 +365,12 @@ public class TransactionManager extends javax.swing.JFrame {
          }
          else if(moneyMarket.isSelected())
             added = data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
-
          if(added)
-            printAddedSuccessfully(data.find(nameFieldText, phoneNumberFieldText));
+         {
+            printAddedSuccessfully(data.peek());
+            dateOpenedField.setText(data.printDateMostRecent());
+            accountNumberField.setText(Integer.toString(data.recentAccNum()));
+         }
       }
    }//GEN-LAST:event_openAccountActionPerformed
 
@@ -364,7 +378,9 @@ public class TransactionManager extends javax.swing.JFrame {
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean removed = false;
-      Object temp = data.find(nameFieldText, phoneNumberFieldText);
+      dateOpenedField.setText(null);
+      accountNumberField.setText(null);
+      Object temp = data.find(nameFieldText, phoneNumberFieldText).getAccountNum();
       if(isValid(nameFieldText,phoneNumberFieldText,false))
       {
          if(checking.isSelected())
@@ -428,12 +444,16 @@ public class TransactionManager extends javax.swing.JFrame {
                {
                   return true;
                }
+               else if(accountTypeCheck(n,p))
+               {
+                  return true;
+               }
                else
                {
                   JOptionPane.showMessageDialog(new JFrame(),
                                             "Account Already Exists",
                                             "Dialog",
-                                            JOptionPane.ERROR_MESSAGE); 
+                                            JOptionPane.ERROR_MESSAGE);  
                }
             }
             else
@@ -456,10 +476,24 @@ public class TransactionManager extends javax.swing.JFrame {
       }
       return false;
    }
+   
+   
+   private boolean accountTypeCheck(String n, String p)
+   {
+      if(data.find(n,p) instanceof Checking && checking.isSelected())
+         return false;
+      if(data.find(n,p) instanceof Savings && savings.isSelected())
+         return false;
+      if(data.find(n,p) instanceof MoneyMarket && moneyMarket.isSelected())
+         return false;
+      return true;
+   }
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
 
+      accountNumberField.setText(null);
       statisticsArea.setText(null);
-      statisticsArea.append("\n" + data.toString());
+      dateOpenedField.setText(null);
+      statisticsArea.append(data.toString());
       
       
    }//GEN-LAST:event_showAccountsActionPerformed
@@ -476,6 +510,14 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit.setEnabled(false);
       directDeposit.setSelected(false);
    }//GEN-LAST:event_savingsActionPerformed
+
+   private void accountNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountNumberFieldActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_accountNumberFieldActionPerformed
+
+   private void dateOpenedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOpenedFieldActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_dateOpenedFieldActionPerformed
 
    public void main()
    {
@@ -514,9 +556,12 @@ public class TransactionManager extends javax.swing.JFrame {
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JTextField accountNumberField;
    private javax.swing.ButtonGroup accountTypeGroup;
+   private javax.swing.JTextField balanceField;
    private javax.swing.JRadioButton checking;
    private javax.swing.JButton closeAccount;
+   private javax.swing.JTextField dateOpenedField;
    private javax.swing.JCheckBox directDeposit;
    private javax.swing.JButton jButton2;
    private javax.swing.JLabel jLabel1;
@@ -531,9 +576,6 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JRadioButton jRadioButton4;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JTextField jTextField1;
-   private javax.swing.JTextField jTextField2;
-   private javax.swing.JTextField jTextField3;
-   private javax.swing.JTextField jTextField4;
    private javax.swing.JTextField jTextField5;
    private javax.swing.JToggleButton jToggleButton1;
    private javax.swing.JRadioButton moneyMarket;

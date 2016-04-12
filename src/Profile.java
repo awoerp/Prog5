@@ -26,7 +26,7 @@ public class Profile
    
    public String toString()
    {
-      return("Name:             " + name + "\n" +
-             "Phone:            " + phone + "\n");
+      return("Name:                         " + name + "\n" +
+             "Phone:                        " + phone + "\n");
    }
 }
