@@ -22,7 +22,7 @@ public abstract class Account
       holder = new Profile(name, phone);
       accNumber = numAccount++;
    }
-   
+
    public boolean equals(String n,String p)
    {
       return(holder.equals(n,p));
@@ -42,8 +42,34 @@ public abstract class Account
       return c && b;
    }
    
+   public boolean equals(String n,String p, E_accountType type)
+   {
+      Object accountClassType = this.getClass();
+      Object dumbyAccount = new Checking(n,p, false);
+      boolean accountTypesMatch = false;
+      if(type == E_accountType.CHECKING && accountClassType.equals(dumbyAccount))
+         accountTypesMatch = true;
+      dumbyAccount = new Savings(n,p, false);
+      if(type == E_accountType.SAVINGS && accountClassType.equals(dumbyAccount))
+         accountTypesMatch = true;
+      dumbyAccount = new MoneyMarket(n,p);
+      if(type == E_accountType.MONEY_MARKET && accountClassType.equals(dumbyAccount))
+         accountTypesMatch = true;
+      
+      decreaseNumberOfAccounts();
+      decreaseNumberOfAccounts();
+      decreaseNumberOfAccounts();
+      
+      return accountTypesMatch && holder.equals(new Profile(n,p));
+   }
+   
    public int getAccountNum()
    {
       return accNumber;
+   }
+   
+   private void decreaseNumberOfAccounts()
+   {
+      numAccount--;
    }
 }

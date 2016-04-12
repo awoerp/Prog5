@@ -35,11 +35,21 @@ public class BankDataBase
       return NOT_FOUND;
    }
    
-   public Account find(String name, String phone, E_accountType type)
+   public Account find(String name, String phone)
    {
       for(int i = 0; i < num; i++)
       {
          if(bank[i].equals(name, phone))
+            return bank[i];
+      }
+      return null;
+   }
+   
+   public Account find(String name, String phone, E_accountType type)
+   {
+      for(int i = 0; i < num; i++)
+      {
+         if(bank[i].equals(name, phone, type))
             return bank[i];
       }
       return null;
