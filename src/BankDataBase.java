@@ -22,7 +22,7 @@ public class BankDataBase
 
    /**
     * finds an account index based on an account number
-    * @param accno
+    * @param accno int
     * @return index of account
     */
    private int find(int accno) //find the given account number; overloading
@@ -35,6 +35,11 @@ public class BankDataBase
       return NOT_FOUND;
    }
       
+   /**
+    * Searches the bag for an account based on a specific account
+    * @param a Account object
+    * @return true if account is found that matches, false if not
+    */
    private int find(Account a)
    {
       for(int i = 0; i < num; i++)
@@ -64,7 +69,7 @@ public class BankDataBase
    
    /**
     * adds an account to the bag
-    * @param a
+    * @param a Account object
     * @return true if it was successful, false if not
     */
    public boolean add(Account a) //add a to the list
@@ -80,7 +85,7 @@ public class BankDataBase
    
    /**
     * removes an account from the bag
-    * @param a
+    * @param a Account object
     * @return true if successful, false if not.
     */
    public boolean remove(Account a) //remove a from the list
@@ -99,7 +104,7 @@ public class BankDataBase
    
    /**
     * checks to see if an account is in the bag
-    * @param a
+    * @param a Account Object
     * @return true if it is, false if not
     */
    public boolean contains(Account a) //return true is a is in the list
@@ -125,7 +130,7 @@ public class BankDataBase
    
    /**
     * returns the size of the bag
-    * @return 
+    * @return int
     */
    public int size() //return the number of accounts in the list 
    {
@@ -134,7 +139,7 @@ public class BankDataBase
   
    /**
     * returns the date of the most recent account added to the bag
-    * @return 
+    * @return String
     */
    public String printDateMostRecent()
    {
@@ -144,7 +149,7 @@ public class BankDataBase
    /**
     * returns the account number of the most recent account added to the
     * bag
-    * @return 
+    * @return int
     */
    public int recentAccNum()
    {
@@ -153,7 +158,7 @@ public class BankDataBase
    
    /**
     * returns the most recent object added to the bag.
-    * @return 
+    * @return Account object
     */
    public Account peek()
    {

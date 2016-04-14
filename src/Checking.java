@@ -1,6 +1,6 @@
 /** This class is a child class of account. It has different information
  * that is specific to a checking account. It has its own too string 
- * method and constructor.
+ * method and constructors.
  * @author SteveWoerpel & Andy Woerpel
  */
 public class Checking extends Account 
@@ -13,9 +13,9 @@ public class Checking extends Account
    /**
     * This creates an object based on a name, phone number, and the 
     * option of having direct deposit.
-    * @param name
-    * @param phone
-    * @param dd 
+    * @param name string
+    * @param phone string
+    * @param dd boolean
     */
    public Checking(String name, String phone, boolean dd)
    {
@@ -23,6 +23,11 @@ public class Checking extends Account
       directDeposit = dd;
    }
    
+   /**
+    * Creates a checking object without increasing the account number
+    * @param name String
+    * @param phone String
+    */
    public Checking(String name, String phone)
    {
       super(name, phone);
@@ -40,7 +45,7 @@ public class Checking extends Account
    
    /**
     * returns the account information as a string
-    * @return 
+    * @return String
     */
    public String toString()
    {

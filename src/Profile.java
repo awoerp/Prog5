@@ -9,8 +9,8 @@ public class Profile
    
    /**
     * creates a profile object based on a name and phone number
-    * @param n
-    * @param p 
+    * @param n String
+    * @param p String
     */
    public Profile(String n, String p)
    {
@@ -30,9 +30,9 @@ public class Profile
    
    /**
     * compares two profiles based on name and phone
-    * @param n
-    * @param p
-    * @return 
+    * @param n String
+    * @param p String
+    * @return true if they are equal, false if not
     */
    public boolean equals(String n, String p)
    {
@@ -42,7 +42,7 @@ public class Profile
    
    /**
     * returns profile information as a string
-    * @return 
+    * @return String
     */
    public String toString()
    {
@@ -50,11 +50,19 @@ public class Profile
              "Phone:                        " + phone + "\n");
    }
    
+   /**
+    * returns name of profile
+    * @return String
+    */
    public String getName()
    {
       return name;
    }
    
+   /**
+    * returns phone number of profile
+    * @return String
+    */
    public String getPhoneNumber()
    {
       return phone;

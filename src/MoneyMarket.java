@@ -14,8 +14,8 @@ public class MoneyMarket extends Account
     /**
     * This creates an object based on a name, phone number, and also sets
     * the number of withdrawals to zero.
-    * @param name
-    * @param phone
+    * @param name String
+    * @param phone String
     */
    public MoneyMarket(String name, String phone)
    {
@@ -23,6 +23,13 @@ public class MoneyMarket extends Account
       withdrawals = 0;
    }
    
+   /**
+    * Creates a new MoneyMarket account that doesnt increase the account
+    * number.
+    * @param name String
+    * @param phone String
+    * @param special boolean
+    */
    public MoneyMarket(String name, String phone, boolean special)
    {
       super(name, phone);
@@ -40,7 +47,7 @@ public class MoneyMarket extends Account
    
     /**
     * returns the account information as a string
-    * @return 
+    * @return String
     */
    public String toString()
    {

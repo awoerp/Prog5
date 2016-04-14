@@ -40,7 +40,7 @@ public class Date
    
    /**
     * Creates a date object copied from a given object.
-    * @param d 
+    * @param d date object
     */
    public Date(Date d)
    {

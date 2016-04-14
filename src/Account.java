@@ -20,8 +20,8 @@ public abstract class Account
    /**
     * This constructor is used when super is called on a sub class
     * it takes a name and phone number to create a profile object
-    * @param name
-    * @param phone 
+    * @param name String
+    * @param phone String
     */
    public Account(String name, String phone)
    {

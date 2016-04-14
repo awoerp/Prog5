@@ -13,9 +13,9 @@ public class Savings extends Account
    /**
    * This creates an object based on a name, phone number, and the option
    * of creating a special savings account.
-   * @param name
-   * @param phone
-   * @param ssa
+   * @param name String
+   * @param phone String
+   * @param ssa boolean
    */
    public Savings(String name, String phone, boolean ssa)
    {
@@ -23,6 +23,11 @@ public class Savings extends Account
       special = ssa;
    }
    
+   /**
+    * creates a new savings account without increasing account number.
+    * @param name String
+    * @param phone String
+    */
    public Savings(String name, String phone)
    {
       super(name, phone);
@@ -40,7 +45,7 @@ public class Savings extends Account
    
    /**
     * returns the account information as a string
-    * @return 
+    * @return String
     */   
    public String toString()
    {

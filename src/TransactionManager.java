@@ -454,7 +454,7 @@ public class TransactionManager extends javax.swing.JFrame {
    
    /**
     * prints successful remove message
-    * @param temp 
+    * @param temp Account Object
     */
    private void printRemovedSuccessfully(Account temp)
    {
@@ -463,14 +463,19 @@ public class TransactionManager extends javax.swing.JFrame {
    
    /**
     * prints successful add message
-    * @param temp 
+    * @param temp Account Object
     */
    private void printAddedSuccessfully(Account temp)
    {
       statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
    }
    
-   
+   /**
+    * Creates a dummy account based on what button is pressed
+    * @param name String
+    * @param phone String
+    * @return account object
+    */
    private Account getDumbyAccount(String name, String phone)
    {
       if(checking.isSelected())
