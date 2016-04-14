@@ -278,6 +278,11 @@ public class TransactionManager extends javax.swing.JFrame {
 
       accountTypeGroup.add(moneyMarket);
       moneyMarket.setText("Money Market");
+      moneyMarket.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            moneyMarketActionPerformed(evt);
+         }
+      });
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
@@ -539,6 +544,13 @@ public class TransactionManager extends javax.swing.JFrame {
    private void dateOpenedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOpenedFieldActionPerformed
       // TODO add your handling code here:
    }//GEN-LAST:event_dateOpenedFieldActionPerformed
+
+   private void moneyMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moneyMarketActionPerformed
+      specialSavingsAccount.setSelected(false);
+      directDeposit.setSelected(false);
+      specialSavingsAccount.setEnabled(false);
+      directDeposit.setEnabled(false);
+   }//GEN-LAST:event_moneyMarketActionPerformed
    
    /**
     * checks if the name is valid. it must be composed of just letters
