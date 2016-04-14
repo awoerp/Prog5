@@ -15,8 +15,8 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit.setEnabled(true);
       specialSavingsAccount.setEnabled(false);
       checking.setSelected(true);
-      nameField.setText("chet chet");
-      phoneNumberField.setText("9209888391");
+      
+      
       
       
    }
