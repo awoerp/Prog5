@@ -17,10 +17,6 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit.setEnabled(true);
       specialSavingsAccount.setEnabled(false);
       checking.setSelected(true);
-      
-      
-      
-      
    }
 
    /**
@@ -390,8 +386,8 @@ public class TransactionManager extends javax.swing.JFrame {
             printAddedSuccessfully(data.peek());
             dateOpenedField.setText(data.printDateMostRecent());
             accountNumberField.setText(Integer.toString(data.recentAccNum()));
-            nameField.setText(null);
-            phoneNumberField.setText(null);
+            //nameField.setText(null);
+            //phoneNumberField.setText(null);
          }
       }
    }//GEN-LAST:event_openAccountActionPerformed
@@ -413,14 +409,20 @@ public class TransactionManager extends javax.swing.JFrame {
       if(isValid(nameFieldText,phoneNumberFieldText,false, accountType))
       {
          if(checking.isSelected())
+         {
             if(temp instanceof Checking)
                removed = data.remove((Checking) temp);
+         }
          else if(savings.isSelected())
+         {
             if(temp instanceof Savings)
                removed = data.remove((Savings) temp);
+         }
          else if(moneyMarket.isSelected())
+         {
             if(temp instanceof MoneyMarket)
                removed = data.remove((MoneyMarket) temp);
+         }
          if(removed)
             printRemovedSuccessfully((Account) temp);
          else
