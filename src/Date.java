@@ -2,7 +2,7 @@
  This class handles everything associated with the date.
  It creates dates, checks if they are valid, changes them to strings,
  and checks if two dates are equal.
- @author Steven Woerpel
+ @author Steven Woerpel & Andy Woerpel
  */
 import java.util.Calendar;
 import java.util.Locale;
@@ -15,6 +15,9 @@ public class Date
    private int  year;
    
    
+   /**
+    * creates new date based on the actual current date.
+    */
    public Date()
    {
       Calendar c = Calendar.getInstance();

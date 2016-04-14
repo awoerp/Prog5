@@ -1,5 +1,5 @@
-/**
- *
+/**This class contains the Enumerated types for the different types of
+ * accounts.
  * @author Andy
  */
 

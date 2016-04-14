@@ -1,5 +1,6 @@
-/**
- *
+/**This is the class that contains the graphical user interface.
+ * it creates buttons, text fields, and everything a user needs to 
+ * use the program.
  * @author SteveWoerpel
  */
 
@@ -9,6 +10,7 @@ public class TransactionManager extends javax.swing.JFrame {
 
    /**
     * Creates new form TransactionManager
+    * Sets initial Conditions of buttons and check boxes
     */
    public TransactionManager() {
       initComponents();
@@ -347,8 +349,13 @@ public class TransactionManager extends javax.swing.JFrame {
 
    }//GEN-LAST:event_nameFieldActionPerformed
 
+   /**
+    * creates an account based on name, phone number, and which type is 
+    * selected. checks for bad input and displays error message. Prints
+    * success message in statistics area.
+    * @param evt 
+    */
    private void openAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openAccountActionPerformed
-
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
@@ -357,92 +364,91 @@ public class TransactionManager extends javax.swing.JFrame {
       if(isValid(nameFieldText,phoneNumberFieldText,true, accountType))
       {
          if(checking.isSelected())
-         {
             if(directDeposit.isSelected())
-               added = data.add(new Checking(nameFieldText,phoneNumberFieldText, true));
+               added = data.add(new Checking(nameFieldText,
+                                phoneNumberFieldText, true));
             else
-               added = data.add(new Checking(nameFieldText,phoneNumberFieldText, false));
-         }
+               added = data.add(new Checking(nameFieldText,
+                                phoneNumberFieldText, false));
          else if(savings.isSelected())
-         {
             if(specialSavingsAccount.isSelected())
-               added = data.add(new Savings(nameFieldText,phoneNumberFieldText, true));
+               added = data.add(new Savings(nameFieldText,
+                                phoneNumberFieldText, true));
             else
-               added = data.add(new Savings(nameFieldText,phoneNumberFieldText, false));
-         }
+               added = data.add(new Savings(nameFieldText,
+                                phoneNumberFieldText, false));
          else if(moneyMarket.isSelected())
-            added = data.add(new MoneyMarket(nameFieldText,phoneNumberFieldText));
+            added = data.add(new MoneyMarket(nameFieldText,
+                                             phoneNumberFieldText));
          if(added)
          {
             printAddedSuccessfully(data.peek());
             dateOpenedField.setText(data.printDateMostRecent());
             accountNumberField.setText(Integer.toString(data.recentAccNum()));
+            nameField.setText(null);
+            phoneNumberField.setText(null);
          }
       }
    }//GEN-LAST:event_openAccountActionPerformed
 
+   /**
+    * removes an account from the list given a name, phone number, and 
+    * account type. Checks for bad input and displays appropriate message
+    * @param evt 
+    */
    private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean removed = false;
       dateOpenedField.setText(null);
       accountNumberField.setText(null);
-      
       E_accountType accountType = getAccountType();
-      
-      
-      Account temp = data.find(nameFieldText, phoneNumberFieldText, accountType);
+      Account temp = data.find(nameFieldText, phoneNumberFieldText,
+                               accountType);
       if(isValid(nameFieldText,phoneNumberFieldText,false, accountType))
       {
          if(checking.isSelected())
-         { 
             if(temp instanceof Checking)
-            {
                removed = data.remove((Checking) temp);
-            }
-         }
          else if(savings.isSelected())
-         {
             if(temp instanceof Savings)
-            {
                removed = data.remove((Savings) temp);
-            }
-         }
          else if(moneyMarket.isSelected())
-         {
             if(temp instanceof MoneyMarket)
-            {
                removed = data.remove((MoneyMarket) temp);
-            }
-         }
-
          if(removed)
-         {
             printRemovedSuccessfully((Account) temp);
-         }
          else
-         {
             JOptionPane.showMessageDialog(new JFrame(),
                                        "Account Not Found",
                                        "Dialog",
                                        JOptionPane.ERROR_MESSAGE);    
-         }
-         
-
       }
    }//GEN-LAST:event_closeAccountActionPerformed
 
    
+   /**
+    * prints successful remove message
+    * @param temp 
+    */
    private void printRemovedSuccessfully(Account temp)
    {
       statisticsArea.append("Account: " + temp.getAccountNum() + " Has been closed.\n");
    }
    
+   /**
+    * prints successful add message
+    * @param temp 
+    */
    private void printAddedSuccessfully(Account temp)
    {
       statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
    }
    
+   /**
+    * Returns the account type as an enum based on what is selected
+    * @return 
+    */
    private E_accountType getAccountType()
    {
       if(checking.isSelected())
@@ -453,61 +459,48 @@ public class TransactionManager extends javax.swing.JFrame {
          return E_accountType.MONEY_MARKET;
    }
    
-   private boolean isValid(String n, String p, boolean add, E_accountType type)
+   /**
+    * checks if a given set of inputs is valid based on what is already
+    * in, or what isnt in the bag. prints appropriate error messages
+    * if necessary.
+    * @param n
+    * @param p
+    * @param add true if add command is being preformed
+    * @param type account type
+    * @return true if info is valid, false otherwise
+    */
+   private boolean isValid(String n, String p, boolean add,
+           E_accountType type)
    {
       if(nameIsValid(n))
-      {
          if(phoneIsValid(p))
-         {
             if(add)
-            {
                if(!data.contains(data.find(n, p, type)))
-               {
                   return true;
-               }
                else
-               {
                   JOptionPane.showMessageDialog(new JFrame(),
                                             "Account Already Exists",
                                             "Dialog",
-                                            JOptionPane.ERROR_MESSAGE);  
-               }
-            }
+                                            JOptionPane.ERROR_MESSAGE); 
             else
                return true;
-         }
          else
-         {
             JOptionPane.showMessageDialog(new JFrame(),
                                           "Invalid Phone Number Entered",
                                           "Dialog",
                                           JOptionPane.ERROR_MESSAGE);    
-         }
-      }
       else
-      {
         JOptionPane.showMessageDialog(new JFrame(),
                                        "Invalid Name Entered",
                                        "Dialog",
                                        JOptionPane.ERROR_MESSAGE); 
-      }
       return false;
    }
    
-   
-   private boolean accountTypeCheck(String n, String p)
-   {
-      if(data.find(n,p) instanceof Checking && checking.isSelected())
-         return false;
-      if(data.find(n,p) instanceof Savings && savings.isSelected())
-         return false;
-      if(data.find(n,p) instanceof MoneyMarket && moneyMarket.isSelected())
-         return false;
-      return true;
-   }
-   
-   
-   
+   /**
+    * clears all fields and prints current accounts
+    * @param evt 
+    */
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
 
       accountNumberField.setText(null);
@@ -518,6 +511,10 @@ public class TransactionManager extends javax.swing.JFrame {
       
    }//GEN-LAST:event_showAccountsActionPerformed
 
+   /**
+    * handles mechanics of button pressing
+    * @param evt 
+    */
    private void checkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkingActionPerformed
       directDeposit.setEnabled(true);
       specialSavingsAccount.setEnabled(false);
@@ -525,6 +522,10 @@ public class TransactionManager extends javax.swing.JFrame {
       
    }//GEN-LAST:event_checkingActionPerformed
 
+   /**
+    * handles mechanics of button pressing
+    * @param evt 
+    */
    private void savingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savingsActionPerformed
       specialSavingsAccount.setEnabled(true);
       directDeposit.setEnabled(false);
@@ -538,26 +539,25 @@ public class TransactionManager extends javax.swing.JFrame {
    private void dateOpenedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOpenedFieldActionPerformed
       // TODO add your handling code here:
    }//GEN-LAST:event_dateOpenedFieldActionPerformed
-
-   public void main()
-   {
-      accountTypeGroup.add(checking);
-      accountTypeGroup.add(savings);
-      accountTypeGroup.add(moneyMarket);
-      checking.setSelected(true);
-      directDeposit.setSelected(false);
-      directDeposit.setEnabled(false);
-      specialSavingsAccount.setSelected(false);
-      specialSavingsAccount.setEnabled(false);
-      
-   }
    
+   /**
+    * checks if the name is valid. it must be composed of just letters
+    * and there must be a first and last name
+    * @param name
+    * @return if it is valid, false if not
+    */
    private boolean nameIsValid(String name)
    {
       boolean result = name.matches("[a-zA-z]+ [a-zA-Z]+");
       return result;
    }
    
+   /**
+    * checks if the phone number is valid. it must have only numbers and
+    * be 10 characters long
+    * @param phone
+    * @return true if it is valid, false if not
+    */
    private boolean phoneIsValid(String phone)
    {
       // Regular expression that matches if phone is

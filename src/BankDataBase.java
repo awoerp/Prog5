@@ -1,6 +1,7 @@
-/**
- *
- * @author SteveWoerpel
+/**This class is the bag that holds the different types of accounts. 
+ * It uses a growable bag with common methods such as add, remove, find,
+ * contains, grow, and several methods that return information as strings.
+ * @author SteveWoerpel & Andy Woerpel
  */
 public class BankDataBase 
 {
@@ -9,12 +10,21 @@ public class BankDataBase
    private Account [] bank;
    private int num;
    
+   /**
+    * creates a new object and initilizes the array and number of items
+    * in the array
+    */
    public BankDataBase()
    {
       bank = new Account[GROW_SIZE];
       num = 0;
    }
    
+   /**
+    * searches the array for a specific account.
+    * @param a
+    * @return index of account
+    */
    private int find(Account a) //find the given Account; overloading
    {
       for(int i = 0; i < num; i++)
@@ -25,6 +35,11 @@ public class BankDataBase
       return NOT_FOUND;
    }
 
+   /**
+    * finds an account index based on an account number
+    * @param accno
+    * @return index of account
+    */
    private int find(int accno) //find the given account number; overloading
    {
       for(int i = 0; i < num; i++)
@@ -35,6 +50,13 @@ public class BankDataBase
       return NOT_FOUND;
    }
    
+   /**
+    * finds all accounts based on just name and phone, then uses equals
+    * method to find correct method.
+    * @param name
+    * @param phone
+    * @return account object
+    */
    public Account find(String name, String phone)
    {
       for(int i = 0; i < num; i++)
@@ -45,6 +67,13 @@ public class BankDataBase
       return null;
    }
    
+   /**
+    * finds an account based on the name, phone number, and account type
+    * @param name
+    * @param phone
+    * @param type
+    * @return account object
+    */
    public Account find(String name, String phone, E_accountType type)
    {
       for(int i = 0; i < num; i++)
@@ -55,6 +84,9 @@ public class BankDataBase
       return null;
    }
    
+   /**
+    * increases size of bag if size is maxed out
+    */
    private void grow() //grow the list by GROW_SIZE
    {
       if(num == bank.length)
@@ -67,7 +99,12 @@ public class BankDataBase
          bank = temp;
       }
    }
-           
+   
+   /**
+    * adds an account to the bag
+    * @param a
+    * @return true if it was successful, false if not
+    */
    public boolean add(Account a) //add a to the list
    {
       if(contains(a))
@@ -79,6 +116,11 @@ public class BankDataBase
       return true;
    }
    
+   /**
+    * removes an account from the bag
+    * @param a
+    * @return true if successful, false if not.
+    */
    public boolean remove(Account a) //remove a from the list
    {
       int index = find(a);
@@ -93,6 +135,11 @@ public class BankDataBase
       return true;
    }
    
+   /**
+    * checks to see if an account is in the bag
+    * @param a
+    * @return true if it is, false if not
+    */
    public boolean contains(Account a) //return true is a is in the list
    {
       if(a == null)
@@ -100,6 +147,10 @@ public class BankDataBase
       return (find(a) != NOT_FOUND);
    }
    
+   /**
+    * returns all accounts in bag as one big string.
+    * @return string
+    */
    public String toString() //concatenate all accounts to a string using ‘\n’ as the delimiter
    {
       String combo = "";
@@ -110,25 +161,40 @@ public class BankDataBase
       return combo;
    }
    
+   /**
+    * returns the size of the bag
+    * @return 
+    */
    public int size() //return the number of accounts in the list 
    {
       return num;
    }
-   
+  
+   /**
+    * returns the date of the most recent account added to the bag
+    * @return 
+    */
    public String printDateMostRecent()
    {
       return(bank[num - 1].openOn.toString());
    }
    
+   /**
+    * returns the account number of the most recent account added to the
+    * bag
+    * @return 
+    */
    public int recentAccNum()
    {
       return(bank[num - 1].getAccountNum());
    }
    
+   /**
+    * returns the most recent object added to the bag.
+    * @return 
+    */
    public Account peek()
    {
       return(bank[num - 1]);
    }
-
-   
 }

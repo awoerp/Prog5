@@ -1,6 +1,7 @@
-/**
- *
- * @author SteveWoerpel chetttttt
+/** This class is a child class of account. It has different information
+ * that is specific to a checking account. It has its own too string 
+ * method and constructor.
+ * @author SteveWoerpel & Andy Woerpel
  */
 public class Checking extends Account 
 {
@@ -9,17 +10,31 @@ public class Checking extends Account
    private static final double MIN_BAL = 1500;
    private boolean directDeposit; //no fees if this is true
    
+   /**
+    * This creates an object based on a name, phone number, and the 
+    * option of having direct deposit.
+    * @param name
+    * @param phone
+    * @param dd 
+    */
    public Checking(String name, String phone, boolean dd)
    {
       super(name, phone);
       directDeposit = dd;
    }
    
+   /**
+    * unused in program 5
+    */
    public void applyInterestAndFee()
    {
       
    }
    
+   /**
+    * returns the account information as a string
+    * @return 
+    */
    public String toString()
    {
       String deposit;
@@ -28,12 +43,10 @@ public class Checking extends Account
       else 
          deposit = "No";
       
-      return("Account number:      " + Integer.toString(accNumber) + "\n" +
-              holder.toString() +
+      return("Account number:      " + Integer.toString(accNumber) + "\n" 
+              + holder.toString() +
              "Account Type:            Checking" + "\n" +
              "Date Opened:            " + openOn.toString() + "\n" +
              "Direct Deposit:          " + deposit);
-   }
-   
-   
+   } 
 }
