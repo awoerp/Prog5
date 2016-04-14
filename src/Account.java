@@ -2,7 +2,7 @@
  * checking, money market, and savings. It keeps track of the account
  * numbers also.
  *
- * @author SteveWoerpel chett
+ * @author SteveWoerpel  & Andy Woerpel
  */
 public abstract class Account 
 {
