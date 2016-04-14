@@ -49,4 +49,15 @@ public class Profile
       return("Name:                         " + name + "\n" +
              "Phone:                        " + phone + "\n");
    }
+   
+   public String getName()
+   {
+      return name;
+   }
+   
+   public String getPhoneNumber()
+   {
+      return phone;
+   }
+   
 }

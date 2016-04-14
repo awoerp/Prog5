@@ -23,6 +23,13 @@ public class MoneyMarket extends Account
       withdrawals = 0;
    }
    
+   public MoneyMarket(String name, String phone, boolean special)
+   {
+      super(name, phone);
+      withdrawals = 0;
+      super.decreaseNumberOfAccounts();
+   }
+   
    /**
     * unused in program 5
     */

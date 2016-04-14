@@ -19,21 +19,6 @@ public class BankDataBase
       bank = new Account[GROW_SIZE];
       num = 0;
    }
-   
-   /**
-    * searches the array for a specific account.
-    * @param a
-    * @return index of account
-    */
-   private int find(Account a) //find the given Account; overloading
-   {
-      for(int i = 0; i < num; i++)
-      {
-         if(bank[i].equals(a))
-            return i;
-      }
-      return NOT_FOUND;
-   }
 
    /**
     * finds an account index based on an account number
@@ -49,39 +34,16 @@ public class BankDataBase
       }
       return NOT_FOUND;
    }
-   
-   /**
-    * finds all accounts based on just name and phone, then uses equals
-    * method to find correct method.
-    * @param name
-    * @param phone
-    * @return account object
-    */
-   public Account find(String name, String phone)
+      
+   private int find(Account a)
    {
       for(int i = 0; i < num; i++)
       {
-         if(bank[i].equals(name, phone))
-            return bank[i];
+         if(bank[i].equals(a))
+            return i;
       }
-      return null;
-   }
-   
-   /**
-    * finds an account based on the name, phone number, and account type
-    * @param name
-    * @param phone
-    * @param type
-    * @return account object
-    */
-   public Account find(String name, String phone, E_accountType type)
-   {
-      for(int i = 0; i < num; i++)
-      {
-         if(bank[i].equals(name, phone, type))
-            return bank[i];
-      }
-      return null;
+      return NOT_FOUND;
+      
    }
    
    /**

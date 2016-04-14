@@ -23,6 +23,13 @@ public class Checking extends Account
       directDeposit = dd;
    }
    
+   public Checking(String name, String phone)
+   {
+      super(name, phone);
+      directDeposit = false;
+      super.decreaseNumberOfAccounts();
+   }
+   
    /**
     * unused in program 5
     */

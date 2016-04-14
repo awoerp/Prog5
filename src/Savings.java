@@ -23,6 +23,13 @@ public class Savings extends Account
       special = ssa;
    }
    
+   public Savings(String name, String phone)
+   {
+      super(name, phone);
+      special = false;
+      super.decreaseNumberOfAccounts();
+   }
+   
    /**
     * unused in program 5
     */

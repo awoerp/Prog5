@@ -5,6 +5,11 @@
  */
 
 import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.lang.Exception;
+
 public class TransactionManager extends javax.swing.JFrame {
 
 
@@ -17,6 +22,7 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit.setEnabled(true);
       specialSavingsAccount.setEnabled(false);
       checking.setSelected(true);
+      this.setTitle("Woe Woe Financial Applications \u00A9");
    }
 
    /**
@@ -39,12 +45,13 @@ public class TransactionManager extends javax.swing.JFrame {
       jPanel2 = new javax.swing.JPanel();
       openAccount = new javax.swing.JButton();
       closeAccount = new javax.swing.JButton();
-      jToggleButton1 = new javax.swing.JToggleButton();
       jButton2 = new javax.swing.JButton();
       jScrollPane1 = new javax.swing.JScrollPane();
       statisticsArea = new javax.swing.JTextArea();
       showAccounts = new javax.swing.JButton();
       runMonthlyInterestAndFees = new javax.swing.JButton();
+      jLabel3 = new javax.swing.JLabel();
+      jButton1 = new javax.swing.JButton();
       savings = new javax.swing.JRadioButton();
       specialSavingsAccount = new javax.swing.JCheckBox();
       directDeposit = new javax.swing.JCheckBox();
@@ -128,8 +135,6 @@ public class TransactionManager extends javax.swing.JFrame {
          }
       });
 
-      jToggleButton1.setText("Deposit");
-
       jButton2.setText("Withdraw");
 
       statisticsArea.setColumns(20);
@@ -144,6 +149,13 @@ public class TransactionManager extends javax.swing.JFrame {
       });
 
       runMonthlyInterestAndFees.setText("Run Monthly Interest and Fees");
+
+      jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/WoeWoe.png"))); // NOI18N
+      jLabel3.setMaximumSize(new java.awt.Dimension(250, 50));
+      jLabel3.setMinimumSize(new java.awt.Dimension(250, 50));
+      jLabel3.setPreferredSize(new java.awt.Dimension(250, 50));
+
+      jButton1.setText("Deposit");
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -163,10 +175,13 @@ public class TransactionManager extends javax.swing.JFrame {
                   .addGap(18, 18, 18)
                   .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                      .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addComponent(runMonthlyInterestAndFees, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                     .addComponent(runMonthlyInterestAndFees, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                  .addGap(0, 0, Short.MAX_VALUE)
+                  .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
       );
       jPanel2Layout.setVerticalGroup(
@@ -176,15 +191,16 @@ public class TransactionManager extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(openAccount)
                .addComponent(closeAccount)
-               .addComponent(jToggleButton1)
-               .addComponent(jButton2))
+               .addComponent(jButton2)
+               .addComponent(jButton1))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(showAccounts)
                .addComponent(runMonthlyInterestAndFees))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-            .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
       );
 
       accountTypeGroup.add(savings);
@@ -306,8 +322,7 @@ public class TransactionManager extends javax.swing.JFrame {
                               .addComponent(jTextField5)))))
                   .addGap(8, 8, 8)
                   .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(44, 44, 44)))
-            .addContainerGap())
+                  .addContainerGap())))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +347,7 @@ public class TransactionManager extends javax.swing.JFrame {
                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(65, 65, 65))
+            .addContainerGap())
       );
 
       pack();
@@ -360,9 +375,9 @@ public class TransactionManager extends javax.swing.JFrame {
       String nameFieldText = nameField.getText();
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean added = false;
-      E_accountType accountType = getAccountType();
       statisticsArea.setText(null);
-      if(isValid(nameFieldText,phoneNumberFieldText,true, accountType))
+      Account dumbyAccount = getDumbyAccount(nameFieldText, phoneNumberFieldText);
+      if(isValid(dumbyAccount, true))
       {
          if(checking.isSelected())
             if(directDeposit.isSelected())
@@ -399,37 +414,40 @@ public class TransactionManager extends javax.swing.JFrame {
     */
    private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
       String nameFieldText = nameField.getText();
+      statisticsArea.setText(null);
       String phoneNumberFieldText = phoneNumberField.getText();
       boolean removed = false;
       dateOpenedField.setText(null);
       accountNumberField.setText(null);
-      E_accountType accountType = getAccountType();
-      Account temp = data.find(nameFieldText, phoneNumberFieldText,
-                               accountType);
-      if(isValid(nameFieldText,phoneNumberFieldText,false, accountType))
+      Account dumbyAccount = getDumbyAccount(nameFieldText, phoneNumberFieldText);
+      statisticsArea.removeAll();
+      if(isValid(dumbyAccount, false))
       {
-         if(checking.isSelected())
+         if(data.contains(dumbyAccount))
          {
-            if(temp instanceof Checking)
-               removed = data.remove((Checking) temp);
+            if(checking.isSelected())
+            {
+               if(dumbyAccount instanceof Checking)
+                  removed = data.remove(dumbyAccount);
+            }
+            else if(savings.isSelected())
+            {
+               if(dumbyAccount instanceof Savings)
+                  removed = data.remove(dumbyAccount);
+            }
+            else if(moneyMarket.isSelected())
+            {
+               if(dumbyAccount instanceof MoneyMarket)
+                  removed = data.remove(dumbyAccount);
+            }
+            if(removed)
+               printRemovedSuccessfully(dumbyAccount);
          }
-         else if(savings.isSelected())
-         {
-            if(temp instanceof Savings)
-               removed = data.remove((Savings) temp);
-         }
-         else if(moneyMarket.isSelected())
-         {
-            if(temp instanceof MoneyMarket)
-               removed = data.remove((MoneyMarket) temp);
-         }
-         if(removed)
-            printRemovedSuccessfully((Account) temp);
          else
             JOptionPane.showMessageDialog(new JFrame(),
                                        "Account Not Found",
                                        "Dialog",
-                                       JOptionPane.ERROR_MESSAGE);    
+                                       JOptionPane.ERROR_MESSAGE);
       }
    }//GEN-LAST:event_closeAccountActionPerformed
 
@@ -452,43 +470,36 @@ public class TransactionManager extends javax.swing.JFrame {
       statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
    }
    
-   /**
-    * Returns the account type as an enum based on what is selected
-    * @return 
-    */
-   private E_accountType getAccountType()
+   
+   private Account getDumbyAccount(String name, String phone)
    {
       if(checking.isSelected())
-         return E_accountType.CHECKING;
+         return new Checking(name, phone);
       else if(savings.isSelected())
-         return E_accountType.SAVINGS;
+         return new Savings(name, phone);
       else
-         return E_accountType.MONEY_MARKET;
+         return new MoneyMarket(name, phone, true);
    }
    
    /**
     * checks if a given set of inputs is valid based on what is already
-    * in, or what isnt in the bag. prints appropriate error messages
+    * in, or what isn't in the bag. prints appropriate error messages
     * if necessary.
-    * @param n
-    * @param p
     * @param add true if add command is being preformed
-    * @param type account type
     * @return true if info is valid, false otherwise
-    */
-   private boolean isValid(String n, String p, boolean add,
-           E_accountType type)
+   */
+   private boolean isValid(Account a, boolean add)
    {
-      if(nameIsValid(n))
-         if(phoneIsValid(p))
+      if(nameIsValid(a.getName()))
+         if(phoneIsValid(a.getPhoneNumber()))
             if(add)
-               if(!data.contains(data.find(n, p, type)))
-                  return true;
-               else
+               if(data.contains(a))
                   JOptionPane.showMessageDialog(new JFrame(),
                                             "Account Already Exists",
                                             "Dialog",
                                             JOptionPane.ERROR_MESSAGE); 
+               else
+                  return true;
             else
                return true;
          else
@@ -513,7 +524,10 @@ public class TransactionManager extends javax.swing.JFrame {
       accountNumberField.setText(null);
       statisticsArea.setText(null);
       dateOpenedField.setText(null);
-      statisticsArea.append(data.toString());
+      if(data.size() == 0)
+         statisticsArea.setText("There are no active accounts.");
+      else
+         statisticsArea.append(data.toString());
       
       
    }//GEN-LAST:event_showAccountsActionPerformed
@@ -539,20 +553,20 @@ public class TransactionManager extends javax.swing.JFrame {
       directDeposit.setSelected(false);
    }//GEN-LAST:event_savingsActionPerformed
 
-   private void accountNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountNumberFieldActionPerformed
-      // TODO add your handling code here:
-   }//GEN-LAST:event_accountNumberFieldActionPerformed
-
-   private void dateOpenedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOpenedFieldActionPerformed
-      // TODO add your handling code here:
-   }//GEN-LAST:event_dateOpenedFieldActionPerformed
-
    private void moneyMarketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moneyMarketActionPerformed
       specialSavingsAccount.setSelected(false);
       directDeposit.setSelected(false);
       specialSavingsAccount.setEnabled(false);
       directDeposit.setEnabled(false);
    }//GEN-LAST:event_moneyMarketActionPerformed
+
+   private void dateOpenedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOpenedFieldActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_dateOpenedFieldActionPerformed
+
+   private void accountNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountNumberFieldActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_accountNumberFieldActionPerformed
    
    /**
     * checks if the name is valid. it must be composed of just letters
@@ -585,6 +599,7 @@ public class TransactionManager extends javax.swing.JFrame {
       java.awt.EventQueue.invokeLater(new Runnable() {
          public void run() {
             new TransactionManager().setVisible(true);
+                
          }
       });
    }
@@ -597,9 +612,11 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JButton closeAccount;
    private javax.swing.JTextField dateOpenedField;
    private javax.swing.JCheckBox directDeposit;
+   private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
@@ -611,7 +628,6 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField5;
-   private javax.swing.JToggleButton jToggleButton1;
    private javax.swing.JRadioButton moneyMarket;
    private javax.swing.JTextField nameField;
    private javax.swing.JButton openAccount;

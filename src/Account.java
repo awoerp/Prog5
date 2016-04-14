@@ -31,22 +31,12 @@ public abstract class Account
       accNumber = numAccount++;
    }
 
-   /**
-    * This method compares two profiles based on name and phone number
-    * @param n
-    * @param p
-    * @return true if are equal, false if not
-    */
-   public boolean equals(String n,String p)
-   {
-      return(holder.equals(n,p));
-   }
    
    /**
     * This method compares two accounts based on their type of subclass
     * used to initiate.
     * @param a general account
-    * @return true if equal, false if not. 
+    * @return true if equal, false if not.
     */
    public boolean equals(Account a)
    {
@@ -58,37 +48,12 @@ public abstract class Account
          c = true;
       }
       boolean b = holder.equals(a.holder);
+      
+      if(c && b)
+         a.accNumber = this.accNumber;
+      
       return c && b;
-   }
-   
-   /**
-    * This method compares two accounts based on their name, phone number,
-    * and account type.
-    * @param n
-    * @param p
-    * @param type type of account, enum
-    * @return true if equal, false if not
-    */
-   public boolean equals(String n,String p, E_accountType type)
-   {
-      Object accountClassType = this.getClass();
-      Object dumbyAccount = new Checking(n,p, false);
-      boolean accountTypesMatch = false;
-      if(type == E_accountType.CHECKING && accountClassType.equals(dumbyAccount.getClass()))
-         accountTypesMatch = true;
-      dumbyAccount = new Savings(n,p, false);
-      if(type == E_accountType.SAVINGS && accountClassType.equals(dumbyAccount.getClass()))
-         accountTypesMatch = true;
-      dumbyAccount = new MoneyMarket(n,p);
-      if(type == E_accountType.MONEY_MARKET && accountClassType.equals(dumbyAccount.getClass()))
-         accountTypesMatch = true;
-      decreaseNumberOfAccounts();
-      decreaseNumberOfAccounts();
-      decreaseNumberOfAccounts();
-      if(type == null)
-         accountTypesMatch = true;
-      return accountTypesMatch && holder.equals(new Profile(n,p));
-   }
+   }   
    
    /**
     * 
@@ -99,10 +64,20 @@ public abstract class Account
       return accNumber;
    }
    
+   public String getName()
+   {
+      return holder.getName();
+   }
+   
+   public String getPhoneNumber()
+   {
+      return holder.getPhoneNumber();
+   }
+   
    /**
     * decrements the number of accounts
     */
-   private void decreaseNumberOfAccounts()
+   public void decreaseNumberOfAccounts()
    {
       numAccount--;
    }
