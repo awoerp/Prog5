@@ -42,17 +42,17 @@ public abstract class Account
    {
       Object thisType = this.getClass();
       Object aType = a.getClass();
-      boolean c = false;
+      boolean accoutTypesMatch = false;
       if(aType.equals(thisType))
       {
-         c = true;
+         accoutTypesMatch = true;
       }
-      boolean b = holder.equals(a.holder);
+      boolean accountHolderMatchs = holder.equals(a.holder);
       
-      if(c && b)
+      if(accoutTypesMatch && accountHolderMatchs)
          a.accNumber = this.accNumber;
       
-      return c && b;
+      return accoutTypesMatch && accountHolderMatchs;
    }   
    
    /**
