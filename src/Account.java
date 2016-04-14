@@ -34,7 +34,6 @@ public abstract class Account
    
    /**
     * This method compares two accounts based on their type of subclass
-    * used to initiate.
     * @param a general account
     * @return true if equal, false if not.
     */
@@ -56,7 +55,7 @@ public abstract class Account
    }   
    
    /**
-    * 
+    * returns the account number of a given account
     * @return the account number of a given account
     */
    public int getAccountNum()
@@ -64,11 +63,19 @@ public abstract class Account
       return accNumber;
    }
    
+   /**
+    * returns the name of an account holder
+    * @return string name
+    */
    public String getName()
    {
       return holder.getName();
    }
    
+   /**
+    * returns phone number of account holder
+    * @return string phone number
+    */
    public String getPhoneNumber()
    {
       return holder.getPhoneNumber();
